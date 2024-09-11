@@ -5,6 +5,8 @@
     On doit avoir les variables DB_URL, DB_COLL et PORT.
 
 */
+require("dotenv").config();
+
 const express = require('express') ;
 const cors = require('cors');
 const mongoose = require('mongoose')
