@@ -2,7 +2,6 @@ name : mern-app
 
 services:
 
-  
   mongo:
     image: mongo:7.0.12
     ports:
@@ -12,9 +11,23 @@ services:
     networks:
       - mern-network
 
+  neo4j:
+    image: neo4j:4.4.3-community
+    ports:
+      - ${NEO_PORT1}:7474
+      - ${NEO_PORT2}:7687
+    restart: unless-stopped
+    volumes:
+      - ${NEO_DATA_PATH}/data:/data
+      - ${NEO_DATA_PATH}/confs:/confs
+      - ${NEO_DATA_PATH}/logs:/logs
+      - ${NEO_DATA_PATH}/plugins:/plugins
+
+
   api:
     depends_on:
       - mongo
+      - neo4j
     build:
       context: ./backend
       dockerfile: Dockerfile
