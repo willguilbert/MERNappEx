@@ -28,6 +28,23 @@ services:
     networks:
       - mern-network
 
+  frontend:
+    depends_on:
+      - api
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - mern-network
+    ports:
+      - ${FRONT_PORT}:3000
+ 
+
 volumes:
   mongo_data:
 
